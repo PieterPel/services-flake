@@ -36,6 +36,7 @@ in
     ./qdrant.nix
     ./chromadb.nix
     ./neo4j.nix
+    ./falkordb.nix
   ]) ++ [
     ./devshell.nix
   ];

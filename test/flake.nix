@@ -5,6 +5,7 @@
     systems.url = "github:nix-systems/default";
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
     services-flake.url = "github:juspay/services-flake";
+    falkordb.url = "github:PieterPel/falkordb-flake";
   };
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
@@ -99,6 +100,10 @@
           ++ lib.optionals (!pkgs.stdenv.hostPlatform.isLinux) [
             # Fails on Linux due to Nix's build sandbox constraints, see https://github.com/NixOS/nixpkgs/issues/377016#issuecomment-2614610914
             "${inputs.services-flake}/nix/services/mongodb_test.nix"
+          ]
+          # FalkorDB: no upstream binary for x86_64-darwin
+          ++ lib.optionals (pkgs.stdenv.hostPlatform.system != "x86_64-darwin") [
+            "${inputs.services-flake}/nix/services/falkordb_test.nix"
           ]));
       };
     };

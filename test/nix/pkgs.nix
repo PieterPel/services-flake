@@ -19,6 +19,13 @@
           });
 
         })
+
+        # FalkorDB is not in nixpkgs; sourced from github:PieterPel/falkordb-flake.
+        # Not available on x86_64-darwin (no upstream binary).
+        (self: super: lib.optionalAttrs
+          (inputs'.falkordb ? packages && inputs'.falkordb.packages ? default)
+          { falkordb = inputs'.falkordb.packages.default; }
+        )
       ];
     };
   };
