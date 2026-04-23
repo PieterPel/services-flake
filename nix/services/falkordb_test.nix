@@ -14,7 +14,7 @@
           redis-cli -p ${toString cfg.port} ping | grep -i "PONG"
 
           echo "Create a graph and run a query"
-          redis-cli -p ${toString cfg.port} GRAPH.QUERY test "CREATE (:Node {name: 'hello'})" | grep -i "nodes_created"
+          redis-cli -p ${toString cfg.port} GRAPH.QUERY test "CREATE (:Node {name: 'hello'})" | grep -i "Nodes created"
 
           echo "Query the graph"
           redis-cli -p ${toString cfg.port} GRAPH.QUERY test "MATCH (n) RETURN n.name" | grep "hello"
