@@ -2,6 +2,7 @@
 
 {
   perSystem = { self', inputs', pkgs, system, lib, ... }: {
+    _module.args."inputs'" = inputs';
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
 
