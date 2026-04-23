@@ -1,8 +1,5 @@
-{ pkgs, falkordbPackage, config, ... }: {
-  services.falkordb."falkordb1" = {
-    enable = true;
-    package = falkordbPackage;
-  };
+{ pkgs, config, ... }: {
+  services.falkordb."falkordb1".enable = true;
 
   settings.processes.test =
     let
