@@ -1,14 +1,10 @@
-{ pkgs, lib, name, config, inputs', ... }:
+{ pkgs, lib, name, config, ... }:
 let
   inherit (lib) types;
 in
 {
   options = {
-    package = lib.mkOption {
-      type = types.package;
-      default = inputs'.falkordb.packages.default;
-      description = "The FalkorDB Redis module package.";
-    };
+    package = lib.mkPackageOption pkgs "falkordb" { };
 
     redisPackage = lib.mkPackageOption pkgs "redis" { };
 

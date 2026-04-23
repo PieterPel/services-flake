@@ -2,7 +2,6 @@
 
 {
   perSystem = { self', inputs', pkgs, system, lib, ... }: {
-    _module.args."inputs'" = inputs';
     _module.args.pkgs = import inputs.nixpkgs {
       inherit system;
 
@@ -10,6 +9,7 @@
       config.allowUnfree = true;
 
       overlays = [
+        (_: _: { falkordb = inputs'.falkordb.packages.default; })
         (self: super: lib.optionalAttrs super.stdenv.isDarwin {
 
           # Disable tests, because they are failing on darwin:
