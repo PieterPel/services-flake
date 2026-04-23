@@ -1,5 +1,8 @@
-{ pkgs, config, ... }: {
-  services.falkordb."falkordb1".enable = true;
+{ pkgs, falkordbPackage, config, ... }: {
+  services.falkordb."falkordb1" = {
+    enable = true;
+    package = falkordbPackage;
+  };
 
   settings.processes.test =
     let
@@ -10,10 +13,10 @@
         name = "falkordb-test";
         runtimeInputs = [ cfg.redisPackage pkgs.gnugrep ];
         text = ''
-          echo "Ping FalkorDB (via Redis protocol)"
+          echo "Ping FalkorDB"
           redis-cli -p ${toString cfg.port} ping | grep -i "PONG"
 
-          echo "Create a graph and run a query"
+          echo "Create a graph"
           redis-cli -p ${toString cfg.port} GRAPH.QUERY test "CREATE (:Node {name: 'hello'})" | grep -i "Nodes created"
 
           echo "Query the graph"
