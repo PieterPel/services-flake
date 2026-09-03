@@ -15,10 +15,6 @@
         ./nix/pkgs.nix
       ];
       perSystem = { self', inputs', pkgs, system, lib, ... }: {
-        # Make falkordbPackage available as a module arg so falkordb_test.nix can use it
-        # directly from the falkordb flake input without any overlay.
-        _module.args.falkordbPackage = inputs'.falkordb.packages.default or null;
-
         process-compose =
           let
             mkPackageFor = mod:
